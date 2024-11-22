@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FIREBASE CRUD</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body class="text-center">
+
+  <nav class="navbar" style="background-color: #252424;">
+    <div class="container-fluid">
+      <h1 class="m-auto w-100 text-white">CRUD CONTACTOS</h1>
+    </div>
+  </nav>
+<br>
+
+
+  <div class="container mt-5">
+    <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addContactos">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
+      <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+      <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5"/>
+    </svg>
+  </button>
+    <table class="table table-striped-columns table-bordered border-primary w-100 text-center" >
+      <thead class="table-dark">
+        <tr class="table-dark">
+          <th>#</th>
+          <th>IMAGEN</th>
+          <th>NOMBRE</th>
+          <th>APELLIDO PATERNO</th>
+          <th>APELLIDO MATERNO</th>
+          <th>NÚMERO</th>
+          <th>CORREO</th>
+          <th>ACTIONS</th>
+        </tr>
+      </thead>
+      <tbody id="tcontactos" class="table-group-divider table-dark table-bordered border-primary">
+      
+      </tbody>
+    </table>
+  </div>
+
+
+  <div class="modal fade" id="addContactos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-ls">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 w-100 m-auto" id="exampleModalLabel">AGREGAR CONTACTO</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="mb-2">
+                    <label class="form-label  d-block">NOMBRE</label>
+                    <input type="text" class="form-control text-center" id="nombre">
+                </div>
+                <div class="mb-2">
+                    <label class="form-label  d-block">APELLIDO PATERNO</label>
+                    <input type="text" class="form-control text-center" id="ap">
+                </div>
+                <div class="mb-2">
+                    <label class="form-label  d-block">APELLIDO PATERNO</label>
+                    <input type="text" class="form-control text-center" id="am">
+                </div>
+
+                <div class="mb-2">
+                  <label class="form-label  d-block">NÚMERO</label>
+                  <input type="text" class="form-control text-center" id="numero" maxlength="10">
+              </div>
+
+                <div class="mb-2">
+                    <label class="form-label  d-block">CORREO</label>
+                    <input type="text" class="form-control text-center" id="correo">
+                </div>
+
+                 <div class="mb-2">
+                  <label for="imagen-url">URL DE IMAGEN</label>
+                  <input type="url" id="imagen" class="form-control text-center" placeholder="https://example.com/image.jpg" required>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                  <button type="button" class="btn btn-danger  m-auto" data-bs-dismiss="modal">Cerrar <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-square-fill" viewBox="0 0 16 16">
+                      <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm3.354 4.646L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708"/>
+                    </svg></button>
+                  <button type="button" class="btn btn-success  m-auto" onclick="guardarContacto()">Guardar <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-floppy-fill" viewBox="0 0 16 16">
+                      <path d="M0 1.5A1.5 1.5 0 0 1 1.5 0H3v5.5A1.5 1.5 0 0 0 4.5 7h7A1.5 1.5 0 0 0 13 5.5V0h.086a1.5 1.5 0 0 1 1.06.44l1.415 1.414A1.5 1.5 0 0 1 16 2.914V14.5a1.5 1.5 0 0 1-1.5 1.5H14v-5.5A1.5 1.5 0 0 0 12.5 9h-9A1.5 1.5 0 0 0 2 10.5V16h-.5A1.5 1.5 0 0 1 0 14.5z"/>
+                      <path d="M3 16h10v-5.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5zm9-16H4v5.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5zM9 1h2v4H9z"/>
+                    </svg></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Modal para editar contacto -->
+<div class="modal fade" id="editContactos" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-ls">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h1 class="modal-title fs-5 w-100 m-auto" id="editModalLabel">EDITAR CONTACTO</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <div class="modal-body">
+              <div class="mb-2">
+                  <label class="form-label  d-block">NOMBRE</label>
+                  <input type="text" class="form-control text-center" id="editNombre">
+              </div>
+              <div class="mb-2">
+                  <label class="form-label  d-block">APELLIDO PATERNO</label>
+                  <input type="text" class="form-control text-center" id="editAp">
+              </div>
+              <div class="mb-2">
+                  <label class="form-label  d-block">APELLIDO MATERNO</label>
+                  <input type="text" class="form-control text-center" id="editAm">
+              </div>
+
+              <div class="mb-2">
+                <label class="form-label  d-block">NÚMERO</label>
+                <input type="text" class="form-control text-center" id="editNumero" maxlength="10">
+            </div>
+
+              <div class="mb-2">
+                  <label class="form-label  d-block">CORREO</label>
+                  <input type="text" class="form-control text-center" id="editCorreo">
+              </div>
+
+              <div class="mb-2">
+                <label for="imagen-url2">URL DE IMAGEN</label>
+                <input type="url" id="editImagen" class="form-control text-center" placeholder="https://example.com/image.jpg" required>
+              </div>
+          </div>
+
+          <div class="modal-footer w-100">
+                <button type="button" class="btn btn-danger  m-auto " data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-success   m-auto " onclick="guardarEdicion()" data-bs-dismiss="modal">Guardar</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
+integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="assets/js/firebase.js" type="module"></script>
+  <script src="assets/js/metodosC.js" type="module"></script>
+</body>
+</html>
